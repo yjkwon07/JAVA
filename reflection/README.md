@@ -164,6 +164,7 @@ private Object handle(Object obj) {
 }
 ```
 [코드5] 객체의 중복처리를 방지하도록 보완한 handle() 메소드
+![diagram](./IMAGE/reflection_diagram.JPG)
 
 # 설계의 개선
 앞서 구현한 유틸리티는 객체 내부를 탐색하는 로직과 보안처리를 위한 코드가 혼재되어 있어 수정이 발생할 때 프로그램이 깨지기 쉽습니다. 
