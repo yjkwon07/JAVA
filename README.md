@@ -34,8 +34,8 @@ __이것이 자바다__ 책을 읽고 부족한 내용과 관심있는 내용들
 
 # 현재 관심 주제 
 
-## [JVM 내부 구조(JAVA SE7)](http://blog.jamesdbloom.com/JVMInternals.html#symbol_table)
+[JVM 내부 구조(JAVA SE7)](http://blog.jamesdbloom.com/JVMInternals.html#symbol_table)
 
-## [객체지향의 사실과 오해](http://woowabros.github.io/study/2016/07/07/think_object_oriented.html)
+[객체지향의 사실과 오해](http://woowabros.github.io/study/2016/07/07/think_object_oriented.html)
 
 
