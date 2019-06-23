@@ -23,15 +23,20 @@
     <servlet-class>sec01.ex01.SecondServlet</servlet-class>
   </servlet>
    
-   <servlet>
+  <servlet>
  	<servlet-name>GetServletContext</servlet-name>
  	<servlet-class>sec04.ex02.GetServletContext</servlet-class>
- 	<init-param>
- 	<param-name>mmm</param-name>
- 	<param-value>Hello</param-value>
- 	</init-param>
- 	</servlet>
  	
+ 	<init-param>
+ 		<param-name>mmmd</param-name>
+ 		<param-value>Hello</param-value>
+ 	</init-param>
+ </servlet>
+  <servlet-mapping>
+    <servlet-name>GetServletContext</servlet-name>
+    <url-pattern>/cget</url-pattern>
+  </servlet-mapping>
+ 
   <servlet-mapping>
     <servlet-name>FirstServlet</servlet-name>
     <url-pattern>/first</url-pattern>
@@ -40,7 +45,4 @@
     <servlet-name>SecondServlet</servlet-name>
     <url-pattern>/second</url-pattern>
   </servlet-mapping>
-  
-
-  
 </web-app>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<!-- action-servlet.xml에소는 뷰 관련 빈과 각 URL 요청명에 대해 호출될 메소드들을 설정 -->
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/views/account/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	
+	<bean id="urlMapping"
+		class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+		<property name="mappings">
+			<props>
+				<!-- /account/*.do로 요청 시 accController빈을 실행 -->
+				<prop key="/account/*.do">accController</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean id="accController"
+		class="com.spring.account.AccountController">
+		<property name="methodNameResolver">
+			<ref bean="methodResolver" />
+		</property>
+		<property name="accService">
+			<!-- accService 빈을 주입 -->
+			<ref bean="accService" />
+		</property>
+	</bean>
+
+	<bean id="methodResolver"
+		class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
+		<property name="mappings">
+			<props>
+				<!-- /account/sendMoney.do로 요청 시 sendMoney 메소드를 호출 -->
+				<prop key="/account/sendMoney.do">sendMoney</prop>
+			</props>
+		</property>
+	</bean>
+</beans>

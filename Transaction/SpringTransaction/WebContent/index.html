@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>com.spring.account</h1>
+<a href="account/sendMoney.do"> 트랜잭션을 적용하는 경우 (송금)</a>
+
+<h1>com.spring.account</h1>
+AccountService.java에서 @애너테이션을 주석한다.<br>
+account.xml의 두 번째 SQL문에 일부러 문법을 오류 발생(계좌 번호의 양쪽 작은따옴표('')를 삭제하여 오류를 발생)<br>
+<a href="account/sendMoney.do"> 트랜잭션을 적용하지 않은 경우 (송금)</a>
+<h1>결과</h1>
+<pre>
+	SQL Developer로 각 계좌 잔고를 조회해 보면 홍길동의 잔고는 5,000,000원이 감소 했으나
+	김유신의 잔고는 10,000,000원이 그대로인 것을 확인할 수 잇따.
+</pre>
+<pre>
+	트랜잭션을 적용한 후 브라우저에서 요청한 결과를 확인하기에 앞서 원래대로 주석을 해제.
+	SQL Developer로 다시 예금자들의 잔고를 10,000,000원으로 변경
+</pre>
+<h1>com.spring.account</h1>
+AccountService.java에서 @애너테이션을 주석한다.<br>
+account.xml의 두 번째 SQL문에 일부러 문법을 오류 발생(계좌 번호의 양쪽 작은따옴표('')를 삭제하여 오류를 발생)<br>
+<a href="account/sendMoney.do"> 트랜잭션을 적용하지 않은 경우 (송금)</a>
+<h1>결과</h1>
+<pre>
+	SQL Developer로 각 계좌 잔고를 조회.
+	이번에는 트랜잭션이 적용되었으므로 김유신의 잔고는 물론이고 오류가 발생하지 않은 홍길동의 잔고도
+	원래의 금액으로 롤백이 된다.
+</pre>
+<pre>
+	대부분의 애프리케이션에서는 이처럼 Service 클래스에 트랜잭션을 적용.
+	사실 SpringMybatis2에서 구현한 회원 기능 프로그램에서 MemberServiceImpl 클래스에도 트랜잭션 애너테이션을 적용했다.
+</pre>
+</body>
+</html>
