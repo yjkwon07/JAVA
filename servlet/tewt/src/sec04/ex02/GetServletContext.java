@@ -18,22 +18,32 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet( 
-urlPatterns = {"/cget"})
+
 public class GetServletContext extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ServletContext context;
-
-	@Override
-	public void init(ServletConfig config) throws ServletException {
-		context = config.getServletContext();
-	}
+	/*
+	 * 서블릿 생성자에서는 getSetvletConfig()메서드를 호출할수 없다. 
+	 * init()메서드가 호출되고 난 후에야 서블릿은 정체성을 가지기 때문이다.
+	 * GenericSetvlet에는 init(ServletConfig)와 init()메소드가 있다. 
+	 * init(ServletConfig) 메소드는 내부적으로 init()를 호출한다. 
+	 * 이렇게 하면 개발자가 init()메소드를 재정의 할수 있다. 
+	 * init(ServletConfig)를 재정의 말란법은 없다. 
+	 * 재정의 하려면 super.init(ServletConfig); 을 먼저 기입하자.
+	 * 백전 양보해도 개발자가 init(ServletConfig)를 재정의 할필요는 없다. 
+	 * getServletConfig()메서드로 ServletConfig를 리턴받으면 되기 때문이다.
+	 */
+//	@Override
+//	public void init(ServletConfig config) throws ServletException {
+//		super.init(config);
+//		context = config.getServletContext();
+//	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("/cget");
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
-
+		context = getServletContext();
 		// getAttribute(String name)
 		out.print("<h1>getAttribute(member)</h1>");
 		List member = (ArrayList) context.getAttribute("member");
@@ -137,8 +147,14 @@ public class GetServletContext extends HttpServlet {
 
 		// config -> getInitParameter
 		out.print("<h1>config -> getInitParameter(mmm)</h1>");
-		String check = getInitParameter("mmm");
-		out.print(check+"<br>");
+		
+			Enumeration e = getServletConfig().getInitParameterNames();
+			while(e.hasMoreElements()){
+				String check = (String)e.nextElement();
+				String s = getServletConfig().getInitParameter(check);
+				out.print(s+"<br>");
+			}
+		
 		out.print("<hr>");
 
 		out.print("</body></html>");

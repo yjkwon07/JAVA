@@ -39,10 +39,21 @@ public class LogoutTest extends HttpServlet {
 
 		session.invalidate();
 
+
+		List user_check = (ArrayList<User>)context.getAttribute("user_check");
 		List user_list = (ArrayList) context.getAttribute("user_list");
+		String is = (String)context.getAttribute("ischange");
+		user_check.remove(user_list.size() - 1);
 		user_list.remove(user_id);
+		is = "bno";
 		context.removeAttribute("user_list");
 		context.setAttribute("user_list", user_list);
+		context.removeAttribute("ischange");
+		context.setAttribute("ischange ", is);
+		context.removeAttribute("user_check");
+		context.setAttribute("user_check", user_check);
+		
+		out.println(is);
 		out.println("<br>로그아웃 되었습니다.");
 	}
 }
