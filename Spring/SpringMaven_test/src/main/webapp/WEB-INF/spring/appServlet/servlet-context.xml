@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+	<!-- 
+		servlet-context.xml에는 JSP의 위치를 지정하는 뷰리졸버와 
+		JSP에서 사용하는 자바스크립트 파일 또는 이미지 같은
+		리소스 경로, 애너테이션 설정 등이 프로젝트 생성 시 자동으로 만들어 진다. 
+	-->
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven />
+	
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<!-- JSP에서 사용될 자바스크립트나 이미지 파일 경로를 지정 -->
+	<resources mapping="/resources/**" location="/resources/" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<!-- 뷰리졸버 빈을 생성하면서 응답할 JSP의 경로를 지정 -->
+	<!-- 
+		servlet-context.xml에서는 기존에 JSP를 표시하기 위해 사용했던 
+		InternalResourceViewResolver를 더 이상 사용하지 않으므로 
+		주석 처리한 다음 타일즈 기능에 관련된 빈들을 설정한다. 
+		스프링의 TilesConfiurer 클래스 빈을 생성하면서 URL 요청에 대해 브라우저에 나타낼 정보가 저장된 
+		타일즈 설정 파일을 패키지 tiles에서 읽어 들인다. 
+	-->
+	
+	<!--
+	스프링의 TilesConfigrer 클래스를 이용해 tilesConfigurer 빈을 생성
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	-->
+	
+	<!-- 패키지와 애너테이션을 지정 -->
+	<context:component-scan base-package="com.myspring.SpringMaven_test" />
+	
+	<!-- 타일즈 실습 설정 -->
+	<beans:bean id="tilesConfigurer"
+		class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+		<beans:property name="definitions">
+			<beans:list>
+			<!-- 패키지 tiles의 모든 설정 XML 파일을 읽어 들인다. -->
+				<beans:value>classpath:tiles/*.xml</beans:value>
+			</beans:list>
+	 	</beans:property>
+		<beans:property name="preparerFactoryClass"
+			value="org.springframework.web.servlet.view.tiles2.SpringBeanPreparerFactory" />
+	</beans:bean>
+	<beans:bean id="viewResolver"
+		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<!-- 타일즈 뷰리졸버를 사용해 화면을 표시 -->
+		<beans:property name="viewClass"
+			value="org.springframework.web.servlet.view.tiles2.TilesView" />
+	</beans:bean>
+	
+	<!-- CommonsMultipartResolver클래스를 multipartResolver빈으로 설정 -->
+	<beans:bean id = "multipartResolver"
+				class = "org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="maxUploadSize" value="5428800"/>
+		<beans:property name="maxInMemorySize" value="1000000"/>
+		<beans:property name="defaultEncoding" value="utf-8"/>			
+	</beans:bean>
+	
+	<!-- 
+		인터셉터 기능 
+		인터셉터를 사용하면 브라우저 요청이 있을 때 요청 메소드 호출 전후에 개발자가 원하는 기능을 수행할 수 있다.
+		인터셉터는 필터와 비슷한 기능을 하지만 웹 애플리케이션의 특정한 위치에서만 동작하는 데 반해 인터셉터는 좀 더 
+		자유롭게 위치를 변경해서 기능을 수행할 수 있다. 
+		즉, 인터셉터는 애프리케이션 안에서 적용 범위를 설정할 수 있다.
+		주로 쿠키 제어, 파일 업로드 작업 등에 사용 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			 
+				<!-- 특정 요청, 즉 /test/*.do에 대해서만 인터셉터빈을 수행--> 
+				<mvc:mapping path="/test/*.do"/>
+			
+			<!-- 인터셉터를 사용해 요청 URL에서 뷰이름을 가져오는 기능을 구현해 본다. -->
+			<!-- 모든 요청에 대해 인터셉터 빈을 수행 -->
+			<mvc:mapping path="/*/*.do"/>
+			<!-- 인터셉터 기능을 수행할 빈을 설정 -->
+			<!-- <beans:bean class = "com.myspring.SpringMaven_test.member.interceptor.ViewNameInterceptor"/> -->
+			<beans:bean class="com.myspring.SpringMaven_test.ex05.LocaleInterceptor"/> 
+		</mvc:interceptor>
+	</mvc:interceptors>
+</beans:beans>

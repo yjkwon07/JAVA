@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- 
+		다국어 기능과 관련된 빈과 메시지 파일을 읽어 드리는 message-context.xml
+		ReloadableResourceBendleMessageSource 클래스를 사용해 message 프로퍼티 파일을 
+		읽어 들이면 다국어 기능을 사용할 수 있다.
+	 -->
+	 <!-- 스프링의 SessionLocaleResolver 클래스를 이용해 locale 정보를 세션에 저장해서 사용 -->
+	<bean id="localeResolver" 
+                  class="org.springframework.web.servlet.i18n.SessionLocaleResolver" />
+   <bean id="messageSource"
+        class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+      <property name="basenames">
+         <list>                
+         	<!-- 패키지 locale에서 message.properties를 읽어 들인다. -->
+            <value>classpath:locale/messages</value>
+         </list>
+      </property>
+      <!-- 파일의 기본 인코딩을 지정합니다. -->
+      <property name="defaultEncoding" value="UTF-8" />
+      <!-- 
+      	properties 파일이 변경되었는지 확인하는 주기를 지정한다.
+      	60초 간격으로 지정 
+      	-->
+      <property name="cacheSeconds" value="60"/>
+   </bean>
+</beans>
+

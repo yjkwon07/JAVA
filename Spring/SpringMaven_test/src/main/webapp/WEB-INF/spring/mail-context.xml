@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- 
+		구글 SMTP 서버와 연동해서 실습하므로 스프링의 JavaMailSenderImpl 클래스를 이용해 
+		메일 서버와 관련된 정보를 설정하도록 mail-context.xml을 작성 
+	-->
+<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+  <!-- 메일을 보냈을 때 실제 수신자에게 메일을 보내는 host 서버에 구글의 SMTP 서버를 설정한다. -->
+  <property name="host" value="smtp.gmail.com" />
+  <!-- 구글 SMTP 메일 서버의 폰트는 465 또는 587이다. -->
+  <property name="port" value="587" />
+  <!-- 자신의 구글 메일 계정과 비밀번호를 설정 -->
+  <property name="username" value="yjkwon9073@gmail.com" />
+  <property name="password" value="!dudwns9073" />
+  <!-- 메일 전달 프로토콜 세부 속성을 설정 -->
+  <property name="javaMailProperties">
+    <props>
+       <prop key="mail.transport.protocol">smtp</prop>
+       <prop key="mail.smtp.auth">true</prop>
+       <prop key="mail.smtp.starttls.enable">true</prop>
+       <prop key="mail.smtp.socketFactory.class">javax.net.ssl.SSLSocketFactory</prop>
+       <prop key="mail.debug">true</prop>
+    </props>
+  </property>
+</bean>
+ 
+<!-- You can have some pre-configured messagess also which are ready to send -->
+	<!-- 수신자에게 메일을 정기적으로 보내는 경우 송수신 메일 주송와 제목을 미리 지정해서 보낼 수 있다. -->
+	<bean id="preConfiguredMessage" class="org.springframework.mail.SimpleMailMessage">
+   <property name="to" value="yjkwon9073@naver.com"></property>
+   <property name="from" value="dudwns9073@nate.com"></property>
+   <property name="subject" value="테스트 메일입니다."/>
+	</bean>
+</beans>
+

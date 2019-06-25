@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans   
+						http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+						http://www.springframework.org/schema/aop
+						http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+						http://www.springframework.org/schema/context
+						http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	<!-- 
+		스프링에서 제공하는 DefaultAnnotationHandlerMapping과 AnnotationHandlerAdapter 클래스의 빈을 설정 . 
+		<context:component-scan base-package="com.spring"/> 태그를 이용해 
+		com.spring하위 패키지에 Annotation이 적용되도록 설정 
+	-->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/" />
+		<!-- <property name="prefix" value="/WEB-INF/views/member/" /> -->
+		<property name="suffix" value=".jsp" />
+	</bean>
+	<!-- 클래스 레벨 @RequestMapping을 처리 -->
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
+	<!-- 메소드 레벨에 @RequestMapping을 처리 -->
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
+	<!-- com.spring 패키지에 존재하는 클래스에 Annotation이 적용되도록 설정 -->
+	<context:component-scan
+		base-package="com.spring" />
+</beans>
