@@ -17,7 +17,7 @@ import net.coobird.thumbnailator.Thumbnails;
 /*@Controller*/
 public class FileDownloadController {
 	private static String CURR_IMAGE_REPO_PATH = "c:\\spring\\image_repo";
-	
+	/*
 	@RequestMapping("/download.do")
 	protected void download(@RequestParam("imageFileName") String imageFileName,
 			                 HttpServletResponse response) throws Exception {
@@ -46,10 +46,12 @@ public class FileDownloadController {
 		in.close();
 		out.close();
 	}
+	*/
 	
-/*	
+/*
  * 쇼핑몰의 상품 목록 이미지 같은 경우 썸네일 이미지 파일을 따로 생성할 필요 없이 
  * 썸네일 이미지를 바로 다운로드하면 훨씬 빨리 표실할 수있다.
+ */
 	@RequestMapping("/download")
 	protected void download(@RequestParam("imageFileName") String imageFileName,
 			                 HttpServletResponse response) throws Exception {
@@ -70,5 +72,5 @@ public class FileDownloadController {
 		out.write(buffer);
 		out.close();
 	}
-	*/
+	
 }

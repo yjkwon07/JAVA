@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- https://okky.kr/article/240080 -->
 <beans:beans xmlns="http://www.springframework.org/schema/mvc"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
@@ -7,13 +8,14 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+	
 	<!-- 
 		servlet-context.xml에는 JSP의 위치를 지정하는 뷰리졸버와 
-		JSP에서 사용하는 자바스크립트 파일 또는 이미지 같은
-		리소스 경로, 애너테이션 설정 등이 프로젝트 생성 시 자동으로 만들어 진다. 
+		JSP에서 사용하는 자바스크립트 파일 또는 이미지 같은 리소스 경로, 
+		애너테이션 설정 등이 프로젝트 생성 시 자동으로 만들어 진다. 
 	-->
-	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<annotation-driven />
 	
@@ -47,13 +49,14 @@
 		class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
 		<beans:property name="definitions">
 			<beans:list>
-			<!-- 패키지 tiles의 모든 설정 XML 파일을 읽어 들인다. -->
+				<!-- 패키지 tiles의 모든 설정 XML 파일을 읽어 들인다. -->
 				<beans:value>classpath:tiles/*.xml</beans:value>
 			</beans:list>
 	 	</beans:property>
 		<beans:property name="preparerFactoryClass"
 			value="org.springframework.web.servlet.view.tiles2.SpringBeanPreparerFactory" />
 	</beans:bean>
+	
 	<beans:bean id="viewResolver"
 		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<!-- 타일즈 뷰리졸버를 사용해 화면을 표시 -->
@@ -75,19 +78,21 @@
 		인터셉터는 필터와 비슷한 기능을 하지만 웹 애플리케이션의 특정한 위치에서만 동작하는 데 반해 인터셉터는 좀 더 
 		자유롭게 위치를 변경해서 기능을 수행할 수 있다. 
 		즉, 인터셉터는 애프리케이션 안에서 적용 범위를 설정할 수 있다.
-		주로 쿠키 제어, 파일 업로드 작업 등에 사용 -->
+		주로 쿠키 제어, 파일 업로드 작업 등에 사용 
+	-->
 	<mvc:interceptors>
-		<mvc:interceptor>
-			 
-				<!-- 특정 요청, 즉 /test/*.do에 대해서만 인터셉터빈을 수행--> 
-				<mvc:mapping path="/test/*.do"/>
+		<mvc:interceptor> 
+			<!-- 특정 요청, 즉 /test/*.do에 대해서만 인터셉터빈을 수행--> 
+			<mvc:mapping path="/test/*.do"/>			
 			
 			<!-- 인터셉터를 사용해 요청 URL에서 뷰이름을 가져오는 기능을 구현해 본다. -->
 			<!-- 모든 요청에 대해 인터셉터 빈을 수행 -->
 			<mvc:mapping path="/*/*.do"/>
+			
 			<!-- 인터셉터 기능을 수행할 빈을 설정 -->
 			<!-- <beans:bean class = "com.myspring.SpringMaven_test.member.interceptor.ViewNameInterceptor"/> -->
 			<beans:bean class="com.myspring.SpringMaven_test.ex05.LocaleInterceptor"/> 
 		</mvc:interceptor>
 	</mvc:interceptors>
+
 </beans:beans>

@@ -7,10 +7,12 @@
 		ReloadableResourceBendleMessageSource 클래스를 사용해 message 프로퍼티 파일을 
 		읽어 들이면 다국어 기능을 사용할 수 있다.
 	 -->
-	 <!-- 스프링의 SessionLocaleResolver 클래스를 이용해 locale 정보를 세션에 저장해서 사용 -->
+	
+	<!-- 스프링의 SessionLocaleResolver 클래스를 이용해 locale 정보를 세션에 저장해서 사용 -->
 	<bean id="localeResolver" 
                   class="org.springframework.web.servlet.i18n.SessionLocaleResolver" />
-   <bean id="messageSource"
+    
+    <bean id="messageSource"
         class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
       <property name="basenames">
          <list>                
@@ -26,5 +28,6 @@
       	-->
       <property name="cacheSeconds" value="60"/>
    </bean>
+   
 </beans>
 

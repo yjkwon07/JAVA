@@ -6,11 +6,10 @@
 	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<!-- web.xml에서 root-context.xml 대신 mybatis-context.xml로 수정한다.-->
-		<!-- <param-value>/WEB-INF/spring/root-context.xml</param-value>-->
-		<!--  <param-value>/WEB-INF/spring/action-mybatis.xml</param-value> -->
-		<!-- web.xml에서는 설정 파일이 여러 개인 경우 톰캣 컨테이너 실행 시 
-			spring 폴더에 있는 모든 설정 파일들을 읽어 들이도록 한다. -->
+		<!-- 
+			web.xml에서는 설정 파일이 여러 개인 경우 톰캣 컨테이너 실행 시 
+			spring 폴더에 있는 모든 설정 파일들을 읽어 들이도록 한다. 
+		-->
 			<param-value>/WEB-INF/spring/*.xml</param-value>
 	</context-param>
 	
@@ -27,7 +26,6 @@
 			<param-name>contextConfigLocation</param-name>
 			<!-- 스프링 실행 시 root-context.xml의 설정 정보를 읽어 들인다. -->
 			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
-			
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>

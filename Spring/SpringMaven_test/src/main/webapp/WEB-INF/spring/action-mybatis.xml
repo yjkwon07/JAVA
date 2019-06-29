@@ -38,7 +38,22 @@
 		</constructor-arg>
 	</bean>
 
-
+	<!-- DataSourceTransactionManager클래스를 이용해 dataSource 빈에 트랜잭션을 적용한다. -->
+	<bean id="txManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource"> 
+			<ref bean="dataSource" /> 
+		</property>
+	</bean>
+	
+	<!-- 애너테이션을 사용하여 트랜잭션을 적용하기 위해 txManager 빈을 설정 한다. -->
+	<tx:annotation-driven
+		transaction-manager="txManager" />
+	<!-- 
+		@Transactional을 이용해 AccountService 클래스의 모든 메소드에 트랜잭션을 적용
+		@Transactional(propagation=Propagation.REQUIRED) 
+	-->
+	
 	<!-- 
 		<bean id="memberDAO" class="com.spring.member.dao.MemberDAOImpl"> 
 			<property name="sqlSession"> 

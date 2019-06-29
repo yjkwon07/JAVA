@@ -2,8 +2,12 @@
 <!DOCTYPE tiles-definitions PUBLIC
 "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
 "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
-<!-- <definition> 태그를 이용해 전체 화면의 공통 레이아웃을 baseLayout으로 지정.
-	그리고 다른 <definition> 태그는 baseLayout 레이아웃을 상속받으면서 title과 body 속성만 변경하여 사용. -->
+
+<!-- 
+	<definition> 태그를 이용해 전체 화면의 공통 레이아웃을 baseLayout으로 지정.
+	그리고 다른 <definition> 태그는 baseLayout 레이아웃을 상속받으면서 title과 body 속성만 변경하여 사용. 
+-->
+
 <tiles-definitions>
    <!-- 공통 레이아웃의 뷰이름을 지정. 전체 레이아웃을 정하는 JSP의 위치를 지정 -->
    <definition name="baseLayout"  template="/WEB-INF/views/common/layout.jsp">
@@ -14,29 +18,32 @@
       
       <!-- 레이아웃에서 사이드 메뉴를 구성하는 JSP의 위치를 지정 -->
       <put-attribute name="side" value="/WEB-INF/views/common/side.jsp" />
-      
+ 
       <put-attribute name="body" value="" />
       
       <!-- 레이아웃에서 하단을 구성하는 JSP의 위치를 지정 -->
       <put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp" />
    </definition>
 	
-	<!-- 메인 화면의 뷰이름을 지정. 기본적인 레이아웃은 baseLayout을 상속받는다. -->
+   <!-- 메인 화면의 뷰이름을 지정. 기본적인 레이아웃은 baseLayout을 상속받는다. -->
    <definition name="main" extends="baseLayout">
    	  <!-- 레이아웃의 제목에 표시할 구문을 지정 -->
       <put-attribute name="title" value="메인페이지" />
       <!-- 레이아웃의 본문에 표시할 JSP를 지정 -->
       <put-attribute name="body" value="/WEB-INF/views/main.jsp" />
    </definition>
-	<!-- 페이지 본문에 회원 목록창 나타내기 -->
-	<!-- 
+	
+   <!-- 페이지 본문에 회원 목록창 나타내기 -->
+   <!-- 
 		/member/listMember.do로 요청했을 때 표시할 <definition> 태그를 추가한다.
 		name의 값은 URL 요청명에서 .do를 제외한 요청명과 일치해야 한다. 
-	-->
-	<!-- 
+   -->
+   
+   <!-- 
 		name : 컨트롤러에서는 반환되는 뷰이름을 지정한다.  
 		extends : 기본레이아웃을 상속받는다.
-	-->
+   -->
+   
    <definition name="/member/*" extends="baseLayout">
 	  <!-- JSP페이지의 제목을 지정한다. -->
       <put-attribute name="title" value="{1}" />
@@ -64,5 +71,6 @@
    <definition name="/member/viewDetail" extends="baseLayout">
       <put-attribute name="title" value="회원상세창" />
       <put-attribute name="body" value="/WEB-INF/views/member/viewDetail.jsp" />
-   </definition> -->
+   </definition> 
+-->
 </tiles-definitions>

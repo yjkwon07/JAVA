@@ -44,14 +44,15 @@ public class MemberControllerImpl   implements MemberController {
 	@RequestMapping(value="/member/listMembers.do" ,method = RequestMethod.GET)
 	public ModelAndView listMembers(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-//		String viewName = getViewName(request);
+		String viewName = getViewName(request);
 		// 인터셉터에서 바인딩된 뷰이름을 가져온다.
-		String viewName = (String)request.getAttribute("viewName");
-//		System.out.println("viewName: " +viewName);
+//		String viewName = (String)request.getAttribute("viewName");
+		
 		// Logger 클래스의 info() 메소드로 로그 메시지 레벨을 info로 설정한다.
 //		logger.info("viewName: "+ viewName);
 		// Logger 클래스의 debug() 메소드로 로그 메시지 레벨을 debug로 설정한다.
 		logger.debug("debug레벨 : viewName: "+ viewName);
+		
 		List membersList = memberService.listMembers();
 		// viewName이 <definition>태그에 설정한 뷰이름과 일치한다.
 		ModelAndView mav = new ModelAndView(viewName);
@@ -63,7 +64,7 @@ public class MemberControllerImpl   implements MemberController {
 	@Override
 	@RequestMapping(value="/member/addMember.do" ,method = RequestMethod.POST)
 	public ModelAndView addMember(@ModelAttribute("member") MemberVO member,
-			                  HttpServletRequest request, HttpServletResponse response) throws Exception {
+			                  			HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("utf-8");
 		int result = 0;
 		result = memberService.addMember(member);
@@ -74,7 +75,7 @@ public class MemberControllerImpl   implements MemberController {
 	@Override
 	@RequestMapping(value="/member/removeMember.do" ,method = RequestMethod.GET)
 	public ModelAndView removeMember(@RequestParam("id") String id, 
-			           HttpServletRequest request, HttpServletResponse response) throws Exception{
+			           					HttpServletRequest request, HttpServletResponse response) throws Exception{
 		request.setCharacterEncoding("utf-8");
 		memberService.removeMember(id);
 		ModelAndView mav = new ModelAndView("redirect:/member/listMembers.do");
@@ -91,26 +92,27 @@ public class MemberControllerImpl   implements MemberController {
 	// 로그인창에서 전송된 ID와 비밀번호를 MemberBO 객체인 member에 저장한다.
 	// RedirectAttributes 클래스를 이용해 로그인 실패 시 다시 로그인창으로 리다이렉트하여 실패 메시지를 전달한다.
 	public ModelAndView login(@ModelAttribute("member") MemberVO member,
-				              RedirectAttributes rAttr,
-		                       HttpServletRequest request, HttpServletResponse response) throws Exception {
-	ModelAndView mav = new ModelAndView();
-	// login() 메소드를 호출하면서 로그인 정보를 전달한다.
-	memberVO = memberService.login(member);
-	if(memberVO != null) {
-		    HttpSession session = request.getSession();
-		    // 세션에 회원 정보를 저장한다.
-		    session.setAttribute("member", memberVO);
-		    // 세션에 로그인 상태를 true로 설정한다.
-		    session.setAttribute("isLogOn", true);
-		    // memberVO로 반환된 값이 있으면 세션을 이용해 로그인 상태를 true로 한다.
-		    mav.setViewName("redirect:/member/listMembers.do");
-	}else {
-			// 로그인 실패 시 실패 메시지를 로그인창으로 전달한다.
-		    rAttr.addAttribute("result","loginFailed");
-		    // 로그인 실패 시 다시 로그인창으로 리다이렉트한다.
-		    mav.setViewName("redirect:/member/loginForm.do");
-	}
-	return mav;
+				              	RedirectAttributes rAttr,
+				              	HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		// login() 메소드를 호출하면서 로그인 정보를 전달한다.
+		memberVO = memberService.login(member);
+		if(memberVO != null) {
+			    HttpSession session = request.getSession();
+			    // 세션에 회원 정보를 저장한다.
+			    session.setAttribute("member", memberVO);
+			    // 세션에 로그인 상태를 true로 설정한다.
+			    session.setAttribute("isLogOn", true);
+			    // memberVO로 반환된 값이 있으면 세션을 이용해 로그인 상태를 true로 한다.
+			    mav.setViewName("redirect:/member/listMembers.do");
+		}
+		else {
+				// 로그인 실패 시 실패 메시지를 로그인창으로 전달한다.
+			    rAttr.addAttribute("result","loginFailed");
+			    // 로그인 실패 시 다시 로그인창으로 리다이렉트한다.
+			    mav.setViewName("redirect:/member/loginForm.do");
+		}
+		return mav;
 	}
 
 	@Override
@@ -139,14 +141,16 @@ public class MemberControllerImpl   implements MemberController {
 		mav.setViewName(viewName);
 		return mav;
 	}
-	/*
+	
 	private String getViewName(HttpServletRequest request) throws Exception {
 		String contextPath = request.getContextPath();
+		System.out.println("contextPath :" +contextPath);
 		String uri = (String) request.getAttribute("javax.servlet.include.request_uri");
+		System.out.println("uri : "+ uri);
 		if (uri == null || uri.trim().equals("")) {
 			uri = request.getRequestURI();
 		}
-
+		System.out.println("uri : "+ uri);
 		int begin = 0;
 		if (!((contextPath == null) || ("".equals(contextPath)))) {
 			begin = contextPath.length();
@@ -155,17 +159,20 @@ public class MemberControllerImpl   implements MemberController {
 		int end;
 		if (uri.indexOf(";") != -1) {
 			end = uri.indexOf(";");
-		} else if (uri.indexOf("?") != -1) {
+		} 
+		else if (uri.indexOf("?") != -1) {
 			end = uri.indexOf("?");
-		} else {
+		} 
+		else {
 			end = uri.length();
 		}
 
 		String viewName = uri.substring(begin, end);
+		
+		// /member/listMembers.do로 요청할 경우 memeber/listMember를 파일 이름으로 가져온다.
 		if (viewName.indexOf(".") != -1) {
 			viewName = viewName.substring(0, viewName.lastIndexOf("."));
 		}
-		// /member/listMembers.do로 요청할 경우 memeber/listMember를 파일 이름으로 가져온다.
 		
 		if (viewName.lastIndexOf("/") != -1) {
 			viewName = viewName.substring(viewName.lastIndexOf("/", 1), viewName.length());
@@ -173,6 +180,6 @@ public class MemberControllerImpl   implements MemberController {
 		
 		return viewName;
 	}
-*/
+
 
 }
