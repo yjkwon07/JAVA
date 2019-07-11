@@ -2,7 +2,10 @@
 조사한 모든 내용은 구글 드라이브에 작성
 
 __이것이 자바다__ 책을 읽고 용어 정리
+
 [JAVA INFO(1)](https://docs.google.com/document/d/17-BoJYHOelAQxajF4xZ-QwHtsWKuOdeJO2sRmoukB1M/edit?usp=sharing)
+
+[JAVA INFO(2)](https://docs.google.com/document/d/1TxndtIG7z6Zcbmv176jasBQV-MZoLJaCSo5Pp0wgrqU/edit?usp=sharing)
 
 __이것이 자바다__ 책을 읽고 부족한 내용과 관심있는 내용들을 더 조사  [JAVA STUDY](https://docs.google.com/document/d/1QXNngvcx0mWnKU_oXMIzxnSb_TwtVq-K45ZzyGFoCuk/edit?usp=sharing)
 
