@@ -170,7 +170,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.29</version>
+			<version>8.0.16</version>
 		</dependency>
 		
 		<!-- 로컬에 설치한 오라클 드라이버 라이브러리를 설정한다. -->
