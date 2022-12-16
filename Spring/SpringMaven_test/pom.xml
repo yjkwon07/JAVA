@@ -24,7 +24,7 @@
 	<properties>
 		<java-version>1.6</java-version>
 		<!-- 이메일 기능을 사용하기 위해 코어 스프링 라이브러리 버전을 4.1.1.RELEASE로 변경한 후 관련 라이브러리를 추가 -->
-		<org.springframework-version>4.1.1.RELEASE</org.springframework-version>
+		<org.springframework-version>5.2.20.RELEASE</org.springframework-version>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 	</properties>
